@@ -1,21 +1,16 @@
 const User = require('../models/Users');
-const qr =  require('qr-image');
-
 
 module.exports = {
-    async index(req, res){
-
-        const users = await User.findAll();
-
-        return res.json(users);
-
-    },
-
 
     async store(req, res)
     {
         const { name, email } = req.body;
 
+        if(await User.findOne({where: {email: email}})) 
+        {
+            return res.status(400).json({ error: 'Usuario ja cadastrado'});
+        }
+        
         const user = await User.create({ name, email});
 
         return res.json(user);
