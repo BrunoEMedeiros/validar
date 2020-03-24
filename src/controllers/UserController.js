@@ -1,4 +1,5 @@
 const User = require('../models/Users');
+const axios = require('axios')
 
 module.exports = {
 
@@ -12,6 +13,18 @@ module.exports = {
         }
         
         const user = await User.create({ name, email});
+
+        await axios.post('http://localhost:3000/posts', {
+                name: name,
+                email: email
+            })
+            .then(res => {
+                console.log(`statusCode: ${res.statusCode}`)
+                console.log(res)
+            })
+            .catch(error => {
+                console.error(error)
+            });
 
         return res.json(user);
     }
