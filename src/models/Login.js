@@ -1,40 +1,33 @@
 const { Model, DataTypes } = require('sequelize');
 
-class User extends Model {
+class Login extends Model {
     static init(sequelize){
         super.init({
-            nome: {
+            login: {
                 type: DataTypes.STRING,
                 allowNull: false,
                 validate: {
                     notEmpty:{
-                        msg: "Nome não pode ser vazio"
+                        msg: "Login não pode ser vazio"
                     },
                     len: {
-                        args: [1, 100],
-                        msg: "Nome deve ter entre 1 e 100 caracteres"
+                        args: [5, 100],
+                        msg: "Login deve ter entre 5 e 100 caracteres"
                     },
                 }
             },
-            email: {
+            senha: {
                 type: DataTypes.STRING,
                 allowNull: false,
                 validate: {
-                    isEmail: {
-                        msg: "Esse campo precisa ser um email"
+                    notEmpty:{
+                        msg: "Senha não pode ser vazia"
                     },
                 }
             },
-            crm: {
-                type: DataTypes.STRING,
+            nivel_id: {
+                type: DataTypes.INTEGER,
                 allowNull: true,
-            },
-            cre: {
-                type: DataTypes.STRING,
-                allowNull: true,
-            },
-            status: {
-                type: DataTypes.BOOLEAN,
             },
         }, 
         {
@@ -42,6 +35,11 @@ class User extends Model {
         })
     }
 
+    static associate(models){
+        this.belongsTo(models.User, { foreignKey: 'usr_id', as: 'users'});
+        this.belongsTo(models.Nivel, { foreignKey: 'nivel_id', as: 'nivel'});
+    }
+
 }
 
-module.exports = User;
+module.exports = Login;
