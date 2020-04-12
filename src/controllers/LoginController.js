@@ -28,7 +28,7 @@ module.exports = {
     {
         try{
         const { usr_id } =  req.params;
-        const { login, nivel_id} =  req.body;
+        const { login} =  req.body;
         var { senha } = req.body;
 
         const user = await User.findByPk(usr_id);
@@ -41,10 +41,11 @@ module.exports = {
             return res.status(400).json({ error: 'Usuario ja possui um login'});
         }
         
+        console.log(senha);
         senha = await criptografar(senha);
         //console.log(senha);
 
-        const lg = await Login.create({ login, senha, usr_id, nivel_id});
+        const lg = await Login.create({ login, senha, usr_id});
         
         return res.status(200).json(lg);
 
@@ -75,7 +76,13 @@ module.exports = {
         {
             return res.status(400).send("Login ou senha estão incorretos");
         }
-        return res.status(200).json(novo);
+
+        const user = await User.findByPk(novo.usr_id);
+
+        if(!user){
+            return res.status(400).json({ error: 'Usuario nao encontrado'});
+        }
+        return res.status(200).json(user);
 
     }
 }

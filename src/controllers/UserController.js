@@ -18,10 +18,23 @@ module.exports = {
             }
     },
 
+    async unico(req, res)
+    {
+        const { id } =  req.body;
+
+        const usuario = await User.findByPk(id)
+
+        if(!usuario)
+        {
+            return res.status(400).json({ error: 'Usuario nao encotrado'});
+        }
+            return res.status(200).json(usuario);
+    },
+
     async store(req, res)
     {
         try{
-        const { nome, email, crm, cre, status} = req.body;
+        const { nome, email, crm, cre, nivel, status} = req.body;
 
         if(await User.findOne({
             where: {
@@ -36,9 +49,9 @@ module.exports = {
             return res.status(400).json({ error: 'Usuario ja cadastrado'});
         }
         
-        const user = await User.create({ nome, email, crm, cre, status});
+        const user = await User.create({ nome, email, crm, cre, nivel, status});
 
-            return res.status(200).send(user);
+            return res.status(200).json(user);
     }
     catch(err)
     {

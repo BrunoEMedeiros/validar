@@ -25,19 +25,17 @@ class Login extends Model {
                     },
                 }
             },
-            nivel_id: {
-                type: DataTypes.INTEGER,
-                allowNull: true,
-            },
         }, 
         {
-            sequelize
+            sequelize,
+            freezeTableName: true,
+            tableName: 'login'
         })
     }
 
     static associate(models){
         this.belongsTo(models.User, { foreignKey: 'usr_id', as: 'users'});
-        this.belongsTo(models.Nivel, { foreignKey: 'nivel_id', as: 'nivel'});
+        //this.belongsTo(models.Nivel, { foreignKey: 'nivel_id', as: 'nivel'});
     }
 
 }

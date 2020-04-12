@@ -6,8 +6,9 @@ const routes = express.Router();
 
 routes.post('/users', UserController.store);
 routes.get('/index', UserController.index);
+routes.post('/index', UserController.unico);
 routes.post('/users/:usr_id/login', LoginController.store);
-routes.get('/logar', LoginController.logar);
+routes.post('/logar', LoginController.logar);
 routes.post('/nivel', NivelController.store);
 
 module.exports = routes;

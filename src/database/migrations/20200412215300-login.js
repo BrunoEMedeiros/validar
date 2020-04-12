@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('logins', { 
+    return queryInterface.createTable('login', { 
       id: {
         primaryKey: true,
         autoIncrement: true,
@@ -21,13 +21,7 @@ module.exports = {
       usr_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model : 'users', key: 'id' },
-      },
-      nivel_id:{
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: { model : 'nivel', key: 'id' },
-        defaultValue: 1
+        references: { model : 'user', key: 'id' },
       },
       created_at: {
         type: Sequelize.DATE,
@@ -41,6 +35,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('logins');
+    return queryInterface.dropTable('login');
   }
 };

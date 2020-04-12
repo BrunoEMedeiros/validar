@@ -33,13 +33,23 @@ class User extends Model {
                 type: DataTypes.STRING,
                 allowNull: true,
             },
+            nivel_id: {
+                type: DataTypes.INTEGER,
+                allowNull: true,
+            },
             status: {
                 type: DataTypes.BOOLEAN,
             },
         }, 
         {
-            sequelize
+            sequelize,
+            freezeTableName: true,
+            tableName: 'user'
         })
+    }
+
+    static associate(models){ 
+        this.belongsTo(models.Nivel, { foreignKey: 'nivel_id', as: 'nivel'});
     }
 
 }
