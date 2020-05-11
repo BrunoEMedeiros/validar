@@ -10,7 +10,7 @@ module.exports = {
                 const users = await User.findAll({
                     where: { status: true}
                 });
-                return res.status(200).send(users);
+                return res.status(200).json(users);
             }
             catch(err)
             {
@@ -69,6 +69,24 @@ module.exports = {
         {
             
         }
+    },
+
+    async excluirprovisorio(req, res)
+    {
+
+        const { id } = req.body
+
+        const usuario = await User.findByPk(id)
+
+        if(!usuario)
+        {
+            return res.status(400).json({ error: 'Usuario nao encotrado'});
+        }
+        
+        usuario = await User.destroy(id);
+
+        return res.status(200).json({ error: 'Usuario excluido com sucesso'});
+
     }
 
     

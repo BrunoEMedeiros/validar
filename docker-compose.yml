@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  postgres-compose:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "helpme"
+    ports:
+      - "15432:5432"
+    volumes:
+      - /home/helpme/PostgreSQL:/var/lib/postgresql/data
+    networks:
+      - postgres-compose-network
+
+  teste-pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "helpme.tcc2020@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "helpme"

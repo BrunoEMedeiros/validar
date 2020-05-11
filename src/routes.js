@@ -10,5 +10,6 @@ routes.post('/index', UserController.unico);
 routes.post('/users/:usr_id/login', LoginController.store);
 routes.post('/logar', LoginController.logar);
 routes.post('/nivel', NivelController.store);
+routes.get('/nivel/index', NivelController.index);
 
 module.exports = routes;

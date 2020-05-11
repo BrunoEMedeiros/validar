@@ -74,14 +74,16 @@ module.exports = {
 
         if(!novo)
         {
-            return res.status(400).send("Login ou senha estão incorretos");
+            return res.status(400).json({ error: 'Login ou senha estão incorretos'});
         }
 
         const user = await User.findByPk(novo.usr_id);
 
         if(!user){
+
             return res.status(400).json({ error: 'Usuario nao encontrado'});
         }
+
         return res.status(200).json(user);
 
     }

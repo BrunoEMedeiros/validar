@@ -15,6 +15,20 @@ module.exports ={
         const nl = await Nivel.create({ descricao })
 
         return res.status(200).json(nl);
+    },
+
+    async index(req, res){
+
+        //try{
+
+            const nivel = await Nivel.findAll();
+            return res.status(200).json(nivel);
+        /*}
+        catch(err)
+        {
+            return res.status(400).send({error : err});
+        }
+        */
     }
 
 }
